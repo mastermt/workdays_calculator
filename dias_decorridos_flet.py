@@ -28,7 +28,9 @@ def main(page: ft.Page):
             tf_days.focus()
             page.update()
 
-    def get_grid_month_datatable(list_mount: List, par_month: int, par_year: int) -> ft.DataTable:
+    def get_grid_month_datatable(
+            list_mount: List, par_month: int, par_year: int
+    ) -> ft.DataTable:
         grip_datatable = ft.DataTable(
             bgcolor="gray",
             # border=ft.border.all(2, "black"),
@@ -63,7 +65,12 @@ def main(page: ft.Page):
         )
         return grip_datatable
 
-    def get_menu(day_month: int = 0, day_week: int = 0, year: int = 0, par_month: int = 0) -> ft.PopupMenuButton:
+    def get_menu(
+            day_month: int = 0,
+            day_week: int = 0,
+            year: int = 0,
+            par_month: int = 0
+    ) -> ft.PopupMenuButton:
         global _HOLIDAYS
         color = ft.colors.RED if day_week in (0, 6) else ft.colors.BLUE
         day_now = f"{year}-{par_month:02}-{day_month:02}"
@@ -176,18 +183,22 @@ def main(page: ft.Page):
         holidays.holidays_insert(day_now)
         _HOLIDAYS = set(holidays.holidays())
         button_calcular_clicked(None)
-        holidays_update_calendar(datetime.datetime.strptime(tf_final_date.value, DATE_FORMAT))
+        holidays_update_calendar(
+            datetime.datetime.strptime(tf_final_date.value, DATE_FORMAT)
+        )
 
     def holidays_delete(day_now: str) -> None:
         global _HOLIDAYS
         holidays.holidays_delete(day_now)
         _HOLIDAYS = set(holidays.holidays())
         button_calcular_clicked(None)
-        holidays_update_calendar(datetime.datetime.strptime(tf_final_date.value, DATE_FORMAT))
+        holidays_update_calendar(
+            datetime.datetime.strptime(tf_final_date.value, DATE_FORMAT)
+        )
 
     page.title = "Calculadora de Dias Úteis"
     icon_image = ft.Image(
-        src=f"/images/schedule.png",
+        src="/images/schedule.png",
         width=128,
         height=128,
         fit=ft.ImageFit.SCALE_DOWN,
@@ -220,7 +231,9 @@ def main(page: ft.Page):
             )
 
         txt_work_days_result.value = text_result
-        holidays_update_calendar(datetime.datetime.strptime(tf_final_date.value, DATE_FORMAT))
+        holidays_update_calendar(
+            datetime.datetime.strptime(tf_final_date.value, DATE_FORMAT)
+        )
         page.update()
 
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
@@ -294,7 +307,9 @@ def main(page: ft.Page):
             alignment=ft.alignment.center,
         )
     )
-    holidays_update_calendar(datetime.datetime.strptime(tf_final_date.value, DATE_FORMAT))
+    holidays_update_calendar(
+        datetime.datetime.strptime(tf_final_date.value, DATE_FORMAT)
+    )
     tf_days.focus()
     page.update()
 

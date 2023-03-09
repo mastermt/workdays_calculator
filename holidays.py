@@ -154,12 +154,17 @@ class App(tk.Tk):
                 showerror(title='Erro', message="Dias tem que ser maior ou igual a 1")
                 self.calculated_days.set('1')
                 calculated_day = 0
-            start_date = (end_date - datetime.timedelta(days=calculated_day)).strftime(DATE_FORMAT)
+            start_date = (
+                    end_date - datetime.timedelta(days=calculated_day)
+            ).strftime(DATE_FORMAT)
             days = work_days(end_date, calculated_day) + 1
             result = f'Dias úteis de {start_date} até {end_date_str}: {days}'
             self.result_label.config(text=result)
             date_backward = backward_work_days(end_date, calculated_day * (-1))
-            result = f'{calculated_day + 1} úteis antes de {end_date_str}: {date_backward.item().strftime(DATE_FORMAT)}'
+            result = (
+                f'{calculated_day + 1} úteis antes de '
+                f'{end_date_str}: {date_backward.item().strftime(DATE_FORMAT)}'
+            )
             self.work_days_label.config(text=result)
         except ValueError as error:
             showerror(title='Erro', message=str(error))
@@ -192,7 +197,9 @@ class App(tk.Tk):
         # start_date entry
         self.start_date_entry = ttk.Entry(self, textvariable=self.start_date)
         self.start_date_entry.grid(column=1, row=3, **paddings)
-        self.start_date_entry.insert(0, datetime.datetime.strftime(datetime.datetime.now(), DATE_FORMAT))
+        self.start_date_entry.insert(
+            0, datetime.datetime.strftime(datetime.datetime.now(), DATE_FORMAT)
+        )
         self.start_date_entry.focus()
 
         # days_to_calc label
@@ -202,13 +209,34 @@ class App(tk.Tk):
         # days_to_calc entry
         self.days_to_calc_entry = ttk.Entry(self, textvariable=self.calculated_days)
         self.days_to_calc_entry.grid(column=1, row=4, **paddings)
-        self.days_to_calc_entry.bind('<Return>', lambda event: self.calcular_dias_button_clicked())
-        self.days_to_calc_entry.bind('<KP_Enter>', lambda event: self.calcular_dias_button_clicked())
-        self.days_to_calc_entry.bind('<KP_Add>', lambda event: self.keypad_chance_value(1, event))
-        self.days_to_calc_entry.bind('<KP_Subtract>', lambda event: self.keypad_chance_value(-1, event))
-        self.days_to_calc_entry.bind('<Next>', lambda event: self.keypad_chance_value(-10, event))
-        self.days_to_calc_entry.bind('<Prior>', lambda event: self.keypad_chance_value(10, event))
-        self.days_to_calc_entry.bind("<KeyRelease>", self.on_key_release_kp_add)
+        self.days_to_calc_entry.bind(
+            '<Return>',
+            lambda event: self.calcular_dias_button_clicked()
+        )
+        self.days_to_calc_entry.bind(
+            '<KP_Enter>',
+            lambda event: self.calcular_dias_button_clicked()
+        )
+        self.days_to_calc_entry.bind(
+            '<KP_Add>',
+            lambda event: self.keypad_chance_value(1, event)
+        )
+        self.days_to_calc_entry.bind(
+            '<KP_Subtract>',
+            lambda event: self.keypad_chance_value(-1, event)
+        )
+        self.days_to_calc_entry.bind(
+            '<Next>',
+            lambda event: self.keypad_chance_value(-10, event)
+        )
+        self.days_to_calc_entry.bind(
+            '<Prior>',
+            lambda event: self.keypad_chance_value(10, event)
+        )
+        self.days_to_calc_entry.bind(
+            "<KeyRelease>",
+            self.on_key_release_kp_add
+        )
         self.days_to_calc_entry.focus()
 
         # convert button
@@ -217,11 +245,15 @@ class App(tk.Tk):
         self.convert_button.configure(command=self.calcular_dias_button_clicked)
 
         # result label
-        self.result_label = ttk.Label(self, foreground='red', font=('Arial', 14, 'bold'))
+        self.result_label = ttk.Label(
+            self, foreground='red', font=('Arial', 14, 'bold')
+        )
         self.result_label.grid(row=5, columnspan=3, **paddings)
 
         # result2 label
-        self.work_days_label = ttk.Label(self, foreground='blue', font=('Arial', 14, 'bold'))
+        self.work_days_label = ttk.Label(
+            self, foreground='blue', font=('Arial', 14, 'bold')
+        )
         self.work_days_label.grid(row=6, columnspan=3, **paddings)
 
 
