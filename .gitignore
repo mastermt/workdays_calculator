@@ -133,3 +133,6 @@ feriados.db
 
 # Pycharm
 .idea/
+
+# Ruff
+.ruff_cache/
