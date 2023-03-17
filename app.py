@@ -208,7 +208,19 @@ def main(page: ft.Page):
     def button_calcular_clicked(e):
         if e:
             pass
-        end_date = datetime.datetime.strptime(tf_final_date.value, DATE_FORMAT)
+        
+        try:
+            end_date = datetime.datetime.strptime(tf_final_date.value, "%d%m%Y")
+        except ValueError:
+            try:
+                end_date = datetime.datetime.strptime(tf_final_date.value, DATE_FORMAT)
+            except ValueError:
+                try:
+                    end_date = datetime.datetime.strptime(tf_final_date.value, "%Y-%m-%d")
+                except ValueError:
+                    end_date = datetime.datetime.strptime('1900-01-01', "%Y-%m-%d")
+        tf_final_date.value = end_date.strftime(DATE_FORMAT)
+            
         if sw_reverse.value:
             work_days = holidays.backward_work_days(
                 end_day=end_date,
@@ -232,9 +244,7 @@ def main(page: ft.Page):
             )
 
         txt_work_days_result.value = text_result
-        holidays_update_calendar(
-            datetime.datetime.strptime(tf_final_date.value, DATE_FORMAT)
-        )
+        holidays_update_calendar(end_date)
         page.update()
 
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
@@ -256,7 +266,7 @@ def main(page: ft.Page):
     tf_final_date = ft.TextField(
         label="Data Final",
         icon=ft.icons.CALENDAR_MONTH,
-        value=final_date.strftime('%d/%m/%Y'), width=180
+        value=final_date.strftime(DATE_FORMAT), width=180
     )
 
     tf_days = ft.TextField(
@@ -308,9 +318,8 @@ def main(page: ft.Page):
             alignment=ft.alignment.center,
         )
     )
-    holidays_update_calendar(
-        datetime.datetime.strptime(tf_final_date.value, DATE_FORMAT)
-    )
+    
+    button_calcular_clicked(None)
     tf_days.focus()
     page.update()
 
