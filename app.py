@@ -120,8 +120,9 @@ def main(page: ft.Page):
             expand=True,
         )
 
-        month_range_count = int((1 + (int(tf_days.value) / 30)) * 1.3999)
-        print(f'count:{(1 + (int(tf_days.value) / 30)) * 1.3999}')
+        month_range_count = int((1 + (int(tf_days.value) / 27.5)) * 1.4505)
+        print(f'start day: {tf_final_date.value}')
+        print(f'count: {(1 + (int(tf_days.value) / 27.5)) * 1.4405}')
         if sw_reverse.value:
             month_range: Tuple = (
                 _final_date.month,
