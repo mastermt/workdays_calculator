@@ -324,9 +324,9 @@ def main(page: ft.Page):
     page.update()
 
 
-# ft.app(target=main, assets_dir="assets",)
-ft.app(
-    target=main, port=8550,
-    view=ft.WEB_BROWSER,
-    assets_dir="assets",
-)
+ft.app(target=main, assets_dir="assets",)
+# ft.app(
+#     target=main, port=8550,
+#     view=ft.WEB_BROWSER,
+#     assets_dir="assets",
+# )
