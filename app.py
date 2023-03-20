@@ -8,6 +8,7 @@ from typing import List, Tuple
 import flet as ft
 import holidays
 
+DESKTOP = False
 DATE_FORMAT = '%d/%m/%Y'
 WEEK_DAYS = ("Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab")
 MONTHS = (
@@ -324,9 +325,11 @@ def main(page: ft.Page):
     page.update()
 
 
-ft.app(target=main, assets_dir="assets",)
-# ft.app(
-#     target=main, port=8550,
-#     view=ft.WEB_BROWSER,
-#     assets_dir="assets",
-# )
+if DESKTOP:
+    ft.app(target=main, assets_dir="assets",)
+else:
+    ft.app(
+        target=main, port=8550,
+        view=ft.WEB_BROWSER,
+        assets_dir="assets",
+    )
