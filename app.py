@@ -39,11 +39,11 @@ def main(page: ft.Page):
             divider_thickness=0,
             column_spacing=16,
             heading_row_color=ft.colors.BLACK12,
-            heading_row_height=20,
-            data_row_height=25,
+            heading_row_height=18,
+            data_row_min_height=15,
             columns=[
                 ft.DataColumn(
-                    ft.Text(day_week),
+                    ft.Text(day_week, size=16),
                     numeric=True,
                 ) for day_week in WEEK_DAYS
             ],
@@ -60,7 +60,7 @@ def main(page: ft.Page):
                                 ],
                             )
                         ) for day_week, day in enumerate(week)
-                    ]
+                    ],
                 ) for week in list_mount
             ]
         )
@@ -80,6 +80,7 @@ def main(page: ft.Page):
         pm_button = ft.PopupMenuButton(
             content=ft.Text(
                 str(day_month),
+                style=ft.TextThemeStyle.TITLE_LARGE,
                 color=color,
                 text_align=ft.TextAlign.CENTER
             ),
@@ -114,10 +115,10 @@ def main(page: ft.Page):
 
         calendars = ft.GridView(
             runs_count=3,
-            max_extent=440,
-            child_aspect_ratio=1.5,
-            spacing=5,
-            run_spacing=5,
+            max_extent=380,
+            child_aspect_ratio=0.95,
+            spacing=16,
+            run_spacing=16,
             expand=True,
         )
 
@@ -165,7 +166,7 @@ def main(page: ft.Page):
                             ft.Container(
                                 content=get_grid_month_datatable(
                                     calendar.monthcalendar(cal_year, cal_month),
-                                    cal_month, cal_year
+                                    cal_month, cal_year,
                                 ),
                                 alignment=ft.alignment.center,
                             ),
@@ -259,7 +260,8 @@ def main(page: ft.Page):
     # )
 
     txt_work_days_result = ft.Text(
-        style=ft.TextThemeStyle.TITLE_MEDIUM,
+        #style=ft.TextThemeStyle.TITLE_LARGE,
+        style=ft.TextThemeStyle.HEADLINE_MEDIUM,
         color=ft.colors.INDIGO_900,
         text_align=ft.TextAlign.CENTER,
         weight=ft.FontWeight.BOLD,
@@ -267,13 +269,15 @@ def main(page: ft.Page):
     tf_final_date = ft.TextField(
         label="Data Final",
         icon=ft.icons.CALENDAR_MONTH,
-        value=final_date.strftime(DATE_FORMAT), width=180
+        value=final_date.strftime(DATE_FORMAT),
+        width=180,
     )
 
     tf_days = ft.TextField(
         label="Dias",
         icon=ft.icons.CALENDAR_TODAY,
-        value='30', width=100
+        value='30',
+        width=100,
     )
     sw_reverse = ft.Switch(label="Dias futuros", value=True)
     bt_calc = ft.ElevatedButton(

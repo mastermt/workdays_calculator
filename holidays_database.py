@@ -22,6 +22,7 @@ def holidays_to_drop() -> List:
         ('2023-02-20', 'Ponto Facultativo-Carnaval', '', ''),
         ('2023-02-21', 'Ponto Facultativo-Carnaval', '', ''),
         ('2023-02-22', 'Ponto Facultativo-Carnaval', '', ''),
+        ('2023-09-07', 'Independência do Brasil', '', ''),
     ]
     return holidays
 
