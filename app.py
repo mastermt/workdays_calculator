@@ -37,13 +37,19 @@ def main(page: ft.Page):
             # border=ft.border.all(2, "black"),
             border_radius=10,
             divider_thickness=0,
-            column_spacing=16,
+            column_spacing=14,
             heading_row_color=ft.colors.BLACK12,
-            heading_row_height=18,
-            data_row_min_height=15,
+            heading_row_height=26,
+            data_row_min_height=22,
             columns=[
                 ft.DataColumn(
-                    ft.Text(day_week, size=16),
+                    ft.Container(
+                        content=ft.Text(
+                            day_week,
+                            style=ft.TextThemeStyle.TITLE_LARGE,
+                        ),
+                        alignment=ft.alignment.center,
+                    ),
                     numeric=True,
                 ) for day_week in WEEK_DAYS
             ],
@@ -58,11 +64,11 @@ def main(page: ft.Page):
                                         year=par_year, par_month=par_month
                                     ) if day else ft.Text(''),
                                 ],
-                            )
+                            ),
                         ) for day_week, day in enumerate(week)
                     ],
                 ) for week in list_mount
-            ]
+            ],
         )
         return grip_datatable
 
@@ -82,7 +88,6 @@ def main(page: ft.Page):
                 str(day_month),
                 style=ft.TextThemeStyle.TITLE_LARGE,
                 color=color,
-                text_align=ft.TextAlign.CENTER
             ),
             items=[
                 ft.PopupMenuItem(
@@ -115,8 +120,8 @@ def main(page: ft.Page):
 
         calendars = ft.GridView(
             runs_count=3,
-            max_extent=380,
-            child_aspect_ratio=0.95,
+            max_extent=450,
+            child_aspect_ratio=0.999,
             spacing=16,
             run_spacing=16,
             expand=True,
@@ -158,6 +163,7 @@ def main(page: ft.Page):
                                     ft.Text(
                                         f"{MONTHS[cal_month - 1]} {cal_year}",
                                         text_align=ft.TextAlign.CENTER,
+                                        style=ft.TextThemeStyle.TITLE_LARGE,
                                         weight=ft.FontWeight.BOLD,
                                     ),
                                 ],
@@ -255,12 +261,8 @@ def main(page: ft.Page):
     page.on_keyboard_event = on_keyboard
 
     final_date = datetime.datetime.today()
-    # final_date = datetime.datetime(
-    #     2023, 2, 28, 0, 0, 0, 0, datetime.timezone.utc
-    # )
 
     txt_work_days_result = ft.Text(
-        #style=ft.TextThemeStyle.TITLE_LARGE,
         style=ft.TextThemeStyle.HEADLINE_MEDIUM,
         color=ft.colors.INDIGO_900,
         text_align=ft.TextAlign.CENTER,
